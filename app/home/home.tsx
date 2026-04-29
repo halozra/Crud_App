@@ -1,21 +1,22 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
 import Footer from "../components/footer";
-import AbsenPage from "../contents/absen/page";
-import Dashboard from "../contents/dasboard/page";
+import AbsenPage from "../contents/absen/absen";
+import Dashboard from "../contents/dasboard/dashboard";
+import Slip_gaji from "../contents/hrms/slip_gaji/slip_gaji";
+import Data_karyawan from "../contents/hrms/data_karyawan/data_karywan";
 
 export default function Home() {
   const [open, setOpen] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
-  const router = useRouter();
+  const [page, setPage] = useState("dashboard");
 
   return (
     <div className="flex h-screen w-full bg-gray-100 text-black">
       {/* Sidebar */}
-      <Sidebar open={open} />
+      <Sidebar open={open} setPage={setPage} />
 
       {/* Main Content */}
       <main
@@ -33,7 +34,10 @@ export default function Home() {
 
         {/* Content */}
         <div className=" h-full justify-center flex">
-          <Dashboard />
+          {page === "dashboard" && <Dashboard />}
+          {page === "absen" && <AbsenPage />}
+          {page === "slip_gaji" && <Slip_gaji />}
+          {page === "data_karyawan" && <Data_karyawan />}
         </div>
 
         {/* Footer */}

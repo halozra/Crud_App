@@ -1,7 +1,9 @@
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Topbar({ open, setOpen, showMenu, setShowMenu }) {
   const router = useRouter();
+
   const handleLogout = () => {
     localStorage.removeItem("username");
     router.push("/login");
