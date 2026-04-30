@@ -3,26 +3,38 @@ import { useState } from "react";
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
 import Footer from "../components/footer";
-import AbsenPage from "../contents/absen/absen";
+
 import Dashboard from "../contents/dasboard/dashboard";
-import Slip_gaji from "../contents/hrms/slip_gaji/slip_gaji";
-import Data_karyawan from "../contents/hrms/data_karyawan/data_karywan";
+import SlipGaji from "../contents/hrms/slip_gaji/slip_gaji";
+import DataKaryawan from "../contents/hrms/data_karyawan/data_karywan";
+import RiwayatAbsen from "../contents/absen/riwayat_absen/R_absen";
+import GantiPass from "../contents/ganti_password/ganti_password";
 
 export default function Home() {
   const [open, setOpen] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [page, setPage] = useState("dashboard");
 
+  // 🔥 mapping page → component
+  const pages: Record<string, JSX.Element> = {
+    dashboard: <Dashboard />,
+    slip_gaji: <SlipGaji />,
+    data_karyawan: <DataKaryawan />,
+    riwayat_absen: <RiwayatAbsen />,
+    ganti_password: <GantiPass />,
+  };
+
   return (
     <div className="flex h-screen w-full bg-gray-100 text-black">
       {/* Sidebar */}
       <Sidebar open={open} setPage={setPage} />
 
-      {/* Main Content */}
+      {/* Main */}
       <main
-        className={`flex-1 flex flex-col transition-all duration-300 ${
-          open ? "ml-64" : "ml-0"
-        }`}
+        className={`
+          flex-1 flex flex-col transition-all duration-300
+          ${open ? "ml-64" : "ml-0"}
+        `}
       >
         {/* Topbar */}
         <Topbar
@@ -33,11 +45,8 @@ export default function Home() {
         />
 
         {/* Content */}
-        <div className=" h-full justify-center flex">
-          {page === "dashboard" && <Dashboard />}
-          {page === "absen" && <AbsenPage />}
-          {page === "slip_gaji" && <Slip_gaji />}
-          {page === "data_karyawan" && <Data_karyawan />}
+        <div className="flex-1 p-4 overflow-auto">
+          {pages[page] || <Dashboard />}
         </div>
 
         {/* Footer */}
