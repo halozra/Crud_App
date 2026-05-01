@@ -16,7 +16,7 @@ export default function Home() {
   const [page, setPage] = useState("dashboard");
 
   // 🔥 mapping page → component
-  const pages: Record<string, JSX.Element> = {
+  const pages: Record<string, React.ReactNode> = {
     dashboard: <Dashboard />,
     slip_gaji: <SlipGaji />,
     data_karyawan: <DataKaryawan />,
